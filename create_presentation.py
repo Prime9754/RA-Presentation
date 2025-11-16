@@ -145,7 +145,7 @@ def main():
     ])
 
     # Slide 3: Experimental Approaches
-    print("  [3/10] Experimental approaches")
+    print("  [3/12] Experimental approaches")
     create_table_slide(prs, "Experimental Approaches",
         ["Experiment", "Approach", "Architecture"],
         [
@@ -155,8 +155,20 @@ def main():
         ]
     )
 
-    # Slide 4: Experiment 1 Details
-    print("  [4/10] Experiment 1 details")
+    # Slide 4: Architecture Comparison Table
+    print("  [4/12] Architecture comparison table")
+    create_image_slide(prs, "Detailed Architecture Comparison",
+        Path("visualizations/architecture_comparison_table.png"),
+        "Comprehensive comparison of all architectural aspects and performance metrics")
+
+    # Slide 5: Architecture Flow Diagrams
+    print("  [5/12] Architecture flow diagrams")
+    create_image_slide(prs, "Architecture Flow Diagrams",
+        Path("visualizations/architecture_flow_diagrams.png"),
+        "Visual representation of data flow through each experimental architecture")
+
+    # Slide 6: Experiment 1 Details
+    print("  [6/12] Experiment 1 details")
     create_content_slide(prs, "Experiment 1: OPG-only Baseline", [
         "Strategy: Establish single-modality baseline using panoramic X-rays",
         "",
@@ -173,8 +185,8 @@ def main():
         "Best Performance: 66.67% validation accuracy (epoch 1)"
     ])
 
-    # Slide 5: Experiment 2 Details
-    print("  [5/10] Experiment 2 details")
+    # Slide 7: Experiment 2 Details
+    print("  [7/12] Experiment 2 details")
     create_content_slide(prs, "Experiment 2: Naïve Late Fusion", [
         "Strategy: Train separate classifiers per modality, fuse at decision level",
         "",
@@ -189,8 +201,8 @@ def main():
         "Best Performance: 93.51% validation accuracy ⭐"
     ])
 
-    # Slide 6: Experiment 3 Details
-    print("  [6/10] Experiment 3 details")
+    # Slide 8: Experiment 3 Details
+    print("  [8/12] Experiment 3 details")
     create_content_slide(prs, "Experiment 3: Multi-Image Prompting", [
         "Strategy: Feed multiple images with specialized prompts to MedGemma",
         "",
@@ -208,26 +220,26 @@ def main():
         "Best Performance: 72.73% validation accuracy"
     ])
 
-    # Slide 7: Results Comparison
-    print("  [7/10] Results comparison")
+    # Slide 9: Results Comparison
+    print("  [9/12] Results comparison")
     create_image_slide(prs, "Results Comparison",
         Path("visualizations/all_experiments_comparison.png"),
         "Comparison of training and validation metrics across all experiments")
 
-    # Slide 8: E1 Training Dynamics
-    print("  [8/10] E1 training dynamics")
+    # Slide 10: E1 Training Dynamics
+    print("  [10/12] E1 training dynamics")
     create_image_slide(prs, "E1: OPG-only Baseline - Training Dynamics",
         Path("visualizations/E1_OPG-only_Baseline_metrics.png"),
         "Shows overfitting - validation loss increases while training continues")
 
-    # Slide 9: E2 Training Dynamics
-    print("  [9/10] E2 training dynamics")
+    # Slide 11: E2 Training Dynamics
+    print("  [11/12] E2 training dynamics")
     create_image_slide(prs, "E2: Late Fusion - Training Dynamics (Best Performer)",
         Path("visualizations/E2_Late_Fusion_metrics.png"),
         "Extremely stable - maintains ~93.5% validation accuracy throughout")
 
-    # Slide 10: Key Findings
-    print("  [10/10] Key findings")
+    # Slide 12: Key Findings
+    print("  [12/12] Key findings")
     create_content_slide(prs, "Key Findings & Conclusions", [
         "Performance Ranking:",
         "  1. E2 (Late Fusion): 93.51% ⭐ - Clear winner",
