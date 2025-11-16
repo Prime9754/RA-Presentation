@@ -13,6 +13,30 @@ This is a research presentation repository for evaluating different approaches t
 - Intraoral photographs
 - Cephalometric X-rays
 
+## Research Documentation
+
+- **Phase-1-experiments-resume.pdf**: Contains the research presentation and experimental results summary
+- **Purpose**: This repository supports a research presentation comparing three different approaches to multi-modal medical image classification
+
+This is a **presentation repository** - the focus is on demonstrating and comparing experimental approaches, not production deployment.
+
+## Repository Structure
+
+```
+/home/user/RA-Presentation/
+├── E(1)-Materials/          # Experiment 1: OPG-only baseline
+│   └── train.py
+├── E(2)-Materials/          # Experiment 2: Late fusion ensemble
+│   └── train.py
+├── E(3)-Materials/          # Experiment 3: Multi-image prompting
+│   └── train.py
+├── Phase-1-experiments-resume.pdf  # Research presentation/summary
+├── CLAUDE.md                # This file
+└── README.md                # Minimal project description
+```
+
+**Note**: The `shared_utils/` module referenced by all scripts is NOT included in this repository and must be available in the parent directory or Python path.
+
 ## Experiments
 
 ### E1: Single-Modality Baseline (OPG-only)
@@ -26,6 +50,7 @@ This is a research presentation repository for evaluating different approaches t
 - **Approach**: Trains 3 separate CNN classifiers (one per modality) and fuses predictions at decision level
 - **Architecture**: SimpleClassifier (custom CNN) for each modality + ensemble fusion
 - **Fusion Methods**: average, weighted, or learned fusion
+- **Self-contained**: E2 includes embedded fallback utilities and can run WITHOUT the shared_utils module (though it will use shared_utils if available for robust modality detection)
 
 ### E3: Multi-Image Prompting
 - **Location**: `E(3)-Materials/train.py`
@@ -137,6 +162,28 @@ The experiments were designed to run on SLURM-managed GPU clusters:
 Logs show typical training speeds:
 - E1: ~11 it/s on RTX 4090
 - Validation: ~8-10 it/s
+
+## Troubleshooting
+
+### Missing shared_utils Module
+If you see import errors for `shared_utils`:
+
+**E1 and E3**: These experiments REQUIRE the shared_utils module. Ensure it's in the parent directory or add it to PYTHONPATH:
+```bash
+export PYTHONPATH="${PYTHONPATH}:/path/to/parent/directory"
+```
+
+**E2**: This experiment has embedded fallback utilities and can run independently, though modality detection will be less robust without shared_utils.
+
+### Directory Name Escaping
+All experiment directories contain parentheses. Always escape them in bash commands or use quotes (see "File Escaping Note" section below).
+
+### Data Path Issues
+Ensure all paths in the input CSV are either:
+- Absolute paths (e.g., `/data/images/patient001/pan.png`)
+- Relative paths from the working directory where you run the script
+
+Missing images will cause training failures or be silently skipped depending on the experiment configuration.
 
 ## Important Implementation Details
 
